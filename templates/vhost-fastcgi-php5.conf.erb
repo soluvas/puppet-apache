@@ -1,0 +1,35 @@
+# ************************************
+# Default template in module apache
+# Managed by Puppet
+# ************************************
+
+NameVirtualHost <%= vhost_name %>:<%= port %>
+<VirtualHost <%= vhost_name %>:<%= port %>>
+	ServerName <%= srvname %>
+<% if serveraliases.is_a? Array -%>
+<% serveraliases.each do |name| -%><%= "	ServerAlias #{name}\n" %><% end -%>
+<% elsif serveraliases != '' -%>
+<%= "	ServerAlias #{serveraliases}" -%>
+<% end -%>
+	DocumentRoot <%= docroot %>
+	<Directory <%= docroot %>>
+		Options <%= options %>
+		AllowOverride None
+		Order allow,deny
+		Allow from all
+	</Directory>
+	ErrorLog /var/log/<%= apache_name %>/<%= name %>_error.log
+	LogLevel warn
+	CustomLog /var/log/<%= apache_name %>/<%= name %>_access.log combined
+	ServerSignature Off
+	
+	FastCgiExternalServer <%= fastcgi_dir %>/php5.external -socket <%= socket %> -idle-timeout 900
+	Alias /fastcgi-bin <%= fastcgi_dir %>
+ 	<Location "/fastcgi-bin/php5.external">
+		Order Deny,Allow
+		Deny from All
+		Allow from env=REDIRECT_STATUS
+	</Location>
+	Action php5-fcgi /fastcgi-bin/php5.external
+	
+</VirtualHost>

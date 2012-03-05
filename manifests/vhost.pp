@@ -4,7 +4,7 @@
 #
 # Parameters:
 # - The $port to configure the host on
-# - The $docroot provides the DocumentationRoot variable
+# - The $docroot provides the `DocumentRoot` variable
 # - The $ssl option is set true or false to enable SSL for this Virtual Host
 # - The $template option specifies whether to use the default template or override
 # - The $priority of the site
@@ -67,7 +67,7 @@ define apache::vhost(
       content => template($template),
       owner   => 'root',
       group   => 'root',
-      mode    => '644',
+      mode    => 0644,
       require => Package['httpd'],
       notify  => Service['httpd'],
   }

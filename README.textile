@@ -2,24 +2,82 @@ h1. apache Puppet Module
 
 Based on "puppetlabs-apache":https://github.com/puppetlabs/puppetlabs-apache (C) PuppetLabs.
 
-h2. Common Usage
+
+h2. Simple Usage
 
 bc. include apache
 # Realize previously defined virtual resources of Apache modules
 Apache::Module <| |>
 
-h2. Development Usage
 
-Add class @apache::dev@ :
+h2. Common Usage
 
-bc. include apache::dev
+bc. include apache
+package {
+  libapache2-mod-fastcgi: ensure => present
+}
+# Enable other needed modules
+@apache::module {
+	fastcgi:    ensure => present;
+	proxy_http: ensure => present;
+}
+# Realize previously defined virtual resources of Apache modules
+Apache::Module <| |>
+
 
 h2. Apache Modules Management
 
 Example:
 
 bc. @apache::module {
-	'fastcgi' : ensure => present;
-	'proxy_http': ensure => present;
-	'status': ensure => absent;
+	fastcgi:    ensure => present;
+	proxy_http: ensure => present;
+	status:     ensure => absent;
 }
+
+
+h2. FastCGI PHP5
+
+To connect to e.g. *PHP-FPM* :
+
+bc. file { '/home/ceefour/public_html':
+  ensure => directory,
+  owner  => 'ceefour',
+  group  => 'ceefour',
+  mode   => 0755
+}
+file { '/home/ceefour/fastcgi-bin':
+  ensure => directory,
+  user   => 'ceefour',
+  group  => 'ceefour',
+  mode   => 0755
+}
+apache::vhost::fastcgi_php5 { 'ceefour.annafi.dev':
+  docroot     => '/home/ceefour/public_html',
+  fastcgi_dir => '/home/ceefour/fastcgi-bin',
+  socket      => '/tmp/php5-ceefour.sock',
+  options     => 'All',
+  require     => [ File['/home/ceefour/public_html'],
+                   File['/home/ceefour/fastcgi-bin'] ]
+}
+
+Example PHP-FPM pool configuration (@/etc/php5/fpm/pool.d/ceefour.conf@) for the above Apache FastCGI PHP5 configuration:
+
+bc.. [ceefour]
+listen = /tmp/php5-ceefour.sock
+
+user = ceefour
+group = ceefour
+
+pm = dynamic
+pm.max_children = 10
+pm.start_servers = 1
+pm.min_spare_servers = 1
+pm.max_spare_servers = 5
+
+
+h2. C Library Development Usage
+
+Add class @apache::dev@ :
+
+bc. include apache::dev
