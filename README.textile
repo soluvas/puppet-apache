@@ -1,0 +1,25 @@
+h1. apache Puppet Module
+
+Based on "puppetlabs-apache":https://github.com/puppetlabs/puppetlabs-apache (C) PuppetLabs.
+
+h2. Common Usage
+
+bc. include apache
+# Realize previously defined virtual resources of Apache modules
+Apache::Module <| |>
+
+h2. Development Usage
+
+Add class @apache::dev@ :
+
+bc. include apache::dev
+
+h2. Apache Modules Management
+
+Example:
+
+bc. @apache::module {
+	'fastcgi' : ensure => present;
+	'proxy_http': ensure => present;
+	'status': ensure => absent;
+}

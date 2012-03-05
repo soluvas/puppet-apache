@@ -1,0 +1,42 @@
+{
+  "name": "soluvas-apache",
+  "author": "",
+  "description": "",
+  "license": "",
+  "project_page": "",
+  "source": "",
+  "summary": "",
+  "version": "0.0.3.1",
+  "checksums": {
+    "Modulefile": "a1e2ebc12e069f72d0f680f07960cba1",
+    "README.textile": "3e05d3ae6bcc8f5143e3139b2297b5a4",
+    "files/httpd": "295f5e924afe6f752d29327e73fe6d0a",
+    "files/test.vhost": "0602022c19a7b6b289f218c7b93c1aea",
+    "manifests/dev.pp": "bc54a5af648cb04b7b3bb0e3f7be6543",
+    "manifests/init.pp": "7b6148d05837b31963ceddada3af2947",
+    "manifests/mod/python.pp": "f6314af3248dadc62f0bf73b606389df",
+    "manifests/mod/wsgi.pp": "e6447e4ee209cf967f09e6977dd83eaa",
+    "manifests/params.pp": "dd68e82c6f99b4d3d1f6ae58b97367f6",
+    "manifests/php.pp": "9396f36e3d1ed284f75f686532d4116b",
+    "manifests/python.pp": "1b36a39f7eee2749ed3c2dca46cd5de2",
+    "manifests/ssl.pp": "29de7197b9abd616a6bedeb0ff33325e",
+    "manifests/vhost.pp": "29035f1f2dfb4e8a0806830d2e13f306",
+    "manifests/vhost/proxy.pp": "062fdcb8ce895dc99073a7e00691faee",
+    "manifests/vhost/redirect.pp": "ae3cbfbd5c4b4a03c87598eee07e4fe0",
+    "templates/vhost-default.conf.erb": "b970c8b20481adb34a888630b8f3ce9e",
+    "templates/vhost-proxy.conf.erb": "816c62c090094203a1fb7b7077e93cdc",
+    "templates/vhost-redirect.conf.erb": "d6bb8a25aa761e424509bbd271663b7b",
+    "tests/apache.pp": "4eac4a7ef68499854c54a78879e25535",
+    "tests/dev.pp": "4cf15c1fecea3ca86009f182b402c7ab",
+    "tests/init.pp": "4eac4a7ef68499854c54a78879e25535",
+    "tests/php.pp": "ce7bb9eef69d32b42a32ce32d9653625",
+    "tests/ssl.pp": "191912535199531fd631f911c6329e56",
+    "tests/vhost.pp": "1b91e03c8ef89a7ecb6793831ac18399"
+  },
+  "dependencies": [
+    {
+      "name": "puppetlabs-firewall",
+      "versionRequirement": "\u003e\u003d0.0.1"
+    }
+  ]
+}
