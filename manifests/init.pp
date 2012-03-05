@@ -20,8 +20,8 @@ class apache {
   }
   if ($::operatingsystem == 'Debian') {
   	package {
-  	  apache2-mpm-worker: ensure => present;
-  	  apache2-mpm-prefork: ensure => absent;
+  	  apache2-mpm-worker:  ensure => present, notify => Service['httpd'];
+  	  apache2-mpm-prefork: ensure => absent,  notify => Service['httpd'];
   	}
   }
   service { 'httpd':
