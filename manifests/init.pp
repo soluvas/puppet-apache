@@ -18,6 +18,12 @@ class apache {
     name   => $apache::params::apache_name,
     ensure => installed,
   }
+  if ($::operatingsystem == 'Debian') {
+  	package {
+  	  apache2-mpm-worker: ensure => present;
+  	  apache2-mpm-prefork: ensure => absent;
+  	}
+  }
   service { 'httpd':
     name      => $apache::params::apache_name,
     ensure    => running,
