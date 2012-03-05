@@ -9,6 +9,12 @@ bc. include apache
 # Realize previously defined virtual resources of Apache modules
 Apache::Module <| |>
 
+By default this will enable the following Apache modules:
+
+* rewrite
+* headers
+* expires
+* deflate
 
 h2. Common Usage
 
@@ -18,6 +24,7 @@ package {
 }
 # Enable other needed modules
 @apache::module {
+	actions:    ensure => present;
 	fastcgi:    ensure => present;
 	proxy_http: ensure => present;
 }

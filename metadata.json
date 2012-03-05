@@ -9,7 +9,7 @@
   "version": "0.0.3.1",
   "checksums": {
     "Modulefile": "a1e2ebc12e069f72d0f680f07960cba1",
-    "README.textile": "3b8ddffd8d27efd29e0ddeeb8815829f",
+    "README.textile": "628c91b1e4e6a2785e6a27d5094ed0f8",
     "files/httpd": "295f5e924afe6f752d29327e73fe6d0a",
     "files/test.vhost": "0602022c19a7b6b289f218c7b93c1aea",
     "manifests/dev.pp": "bc54a5af648cb04b7b3bb0e3f7be6543",
