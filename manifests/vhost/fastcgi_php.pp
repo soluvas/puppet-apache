@@ -1,31 +1,31 @@
 # Define: apache::vhost::fastcgi_php5
 #
-# This class will create a vhost that connects to PHP5 app server via FastCGI
+# This class will create a vhost that connects to PHP app server via FastCGI
 #
 # Parameters:
 # * $docroot: Provides the `DocumentRoot` variable
 # * $port:    Which port to listen on
 # * $dir:     FastCGI directory, this is usually:
 #          home/${user}/fastcgi-bin
-# * $socket:  Socket file, usually: /tmp/${user}.sock
+# * $socket:  Socket file, usually: /var/run/php-${user}.sock
 # * $options: Apache Options directive, e.g. 'All' 
 # - $vhost_name
 #
 # Actions:
-#   Installs apache and creates a FastCGI PHP5 vhost
+#   Installs apache and creates a FastCGI PHP vhost
 #
 # Requires:
 #
 # Sample Usage:
 #
-define apache::vhost::fastcgi_php5 (
+define apache::vhost::fastcgi_php (
 	$docroot,
     $port          = 80,
     $fastcgi_dir,
     $socket,
     $priority      = '10',
     $serveraliases = '',
-    $template      = "apache/vhost-fastcgi-php5.conf.erb",
+    $template      = "apache/vhost-fastcgi-php.conf.erb",
     $options       = 'All -Indexes',
     $apache_name   = $apache::params::apache_name,
     $vhost_name    = $apache::params::vhost_name) {

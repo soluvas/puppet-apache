@@ -43,7 +43,7 @@ bc. @apache::module {
 }
 
 
-h2. FastCGI PHP5
+h2. FastCGI PHP
 
 To connect to e.g. *PHP-FPM* :
 
@@ -59,10 +59,10 @@ file { '/home/ceefour/fastcgi-bin':
   group  => 'ceefour',
   mode   => 0755
 }
-apache::vhost::fastcgi_php5 { 'ceefour.annafi.dev':
+apache::vhost::fastcgi_php { 'ceefour.annafi.dev':
   docroot     => '/home/ceefour/public_html',
   fastcgi_dir => '/home/ceefour/fastcgi-bin',
-  socket      => '/tmp/php5-ceefour.sock',
+  socket      => '/var/run/php-ceefour.sock',
   options     => 'All',
   require     => [ File['/home/ceefour/public_html'],
                    File['/home/ceefour/fastcgi-bin'] ]
@@ -71,7 +71,7 @@ apache::vhost::fastcgi_php5 { 'ceefour.annafi.dev':
 Example PHP-FPM pool configuration (@/etc/php5/fpm/pool.d/ceefour.conf@) for the above Apache FastCGI PHP5 configuration:
 
 bc.. [ceefour]
-listen = /tmp/php5-ceefour.sock
+listen = /var/run/php-ceefour.sock
 
 user = ceefour
 group = ceefour

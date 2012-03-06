@@ -23,13 +23,14 @@ NameVirtualHost <%= vhost_name %>:<%= port %>
 	CustomLog /var/log/<%= apache_name %>/<%= name %>_access.log combined
 	ServerSignature Off
 	
-	FastCgiExternalServer <%= fastcgi_dir %>/php5.external -socket <%= socket %> -idle-timeout 900
+	FastCgiExternalServer <%= fastcgi_dir %>/php.external -socket <%= socket %> -idle-timeout 900
 	Alias /fastcgi-bin <%= fastcgi_dir %>
- 	<Location "/fastcgi-bin/php5.external">
+ 	<Location "/fastcgi-bin/php.external">
 		Order Deny,Allow
 		Deny from All
 		Allow from env=REDIRECT_STATUS
 	</Location>
-	Action php5-fcgi /fastcgi-bin/php5.external
+	AddHandler php-fastcgi .php
+	Action php-fastcgi /fastcgi-bin/php.external
 	
 </VirtualHost>
