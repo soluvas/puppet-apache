@@ -14,7 +14,7 @@
 #
 class apache {
   include apache::params
-  package { 'httpd': 
+  package { 'httpd':
     name   => $apache::params::apache_name,
     ensure => installed,
   }
@@ -51,7 +51,7 @@ class apache {
   	}
   }
   @module {
-  	['rewrite', 'headers', 'expires', 'deflate']: ensure => present;
+  	['rewrite', 'headers', 'expires', 'deflate', 'alias']: ensure => present;
   }
 
   file { $apache::params::vdir:
@@ -59,5 +59,5 @@ class apache {
     recurse => true,
     purge => true,
     notify => Service['httpd'],
-  } 
+  }
 }

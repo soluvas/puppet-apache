@@ -15,6 +15,7 @@ By default this will enable the following Apache modules:
 * headers
 * expires
 * deflate
+* alias
 
 h2. Common Usage
 

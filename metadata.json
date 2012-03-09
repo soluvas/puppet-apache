@@ -9,11 +9,11 @@
   "version": "0.0.3.1",
   "checksums": {
     "Modulefile": "a1e2ebc12e069f72d0f680f07960cba1",
-    "README.textile": "41c54bf69bbbf9eff343acdffaef57af",
+    "README.textile": "19a629e856a0f7df151ed7a9409bcca8",
     "files/httpd": "295f5e924afe6f752d29327e73fe6d0a",
     "files/test.vhost": "0602022c19a7b6b289f218c7b93c1aea",
     "manifests/dev.pp": "bc54a5af648cb04b7b3bb0e3f7be6543",
-    "manifests/init.pp": "32435b06c59f23cce8077a2bad475c92",
+    "manifests/init.pp": "0d3464f0c2de92b4a469e62bcaf5224a",
     "manifests/mod/python.pp": "f6314af3248dadc62f0bf73b606389df",
     "manifests/mod/wsgi.pp": "e6447e4ee209cf967f09e6977dd83eaa",
     "manifests/params.pp": "dd68e82c6f99b4d3d1f6ae58b97367f6",
