@@ -8,7 +8,8 @@
 # * $dir:     FastCGI directory, this is usually:
 #          home/${user}/fastcgi-bin
 # * $socket:  Socket file, usually: /var/run/php-${user}.sock
-# * $options: Apache Options directive, e.g. 'All' 
+# * $options: Apache Options directive, e.g. 'All'
+# * $allow_override: Apache AllowOverride directive, default is 'All'
 # - $vhost_name
 #
 # Actions:
@@ -19,16 +20,18 @@
 # Sample Usage:
 #
 define apache::vhost::fastcgi_php (
-	$docroot,
-    $port          = 80,
-    $fastcgi_dir,
-    $socket,
-    $priority      = '10',
-    $serveraliases = '',
-    $template      = "apache/vhost-fastcgi-php.conf.erb",
-    $options       = 'All -Indexes',
-    $apache_name   = $apache::params::apache_name,
-    $vhost_name    = $apache::params::vhost_name) {
+  $docroot,
+  $port           = 80,
+  $fastcgi_dir,
+  $socket,
+  $priority       = '10',
+  $serveraliases  = '',
+  $template       = "apache/vhost-fastcgi-php.conf.erb",
+  $options        = 'All -Indexes',
+  $allow_override = 'All',
+  $apache_name    = $apache::params::apache_name,
+  $vhost_name     = $apache::params::vhost_name)
+{
 
   include apache
 
@@ -52,5 +55,5 @@ define apache::vhost::fastcgi_php (
 #        proto => 'tcp'
 #    }
 #  }
-  
+
 }
