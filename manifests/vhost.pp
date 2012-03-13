@@ -26,18 +26,20 @@
 #  }
 #
 define apache::vhost(
-    $port,
+    $port           = 80,
     $docroot,
-    $ssl           = $apache::params::ssl,
-    $template      = $apache::params::template,
-    $priority      = $apache::params::priority,
-    $servername    = $apache::params::servername,
-    $serveraliases = $apache::params::serveraliases,
-    $auth          = $apache::params::auth,
-    $redirect_ssl  = $apache::params::redirect_ssl,
-    $options       = $apache::params::options,
-    $apache_name   = $apache::params::apache_name,
-    $vhost_name    = $apache::params::vhost_name
+    $ssl            = $apache::params::ssl,
+    $template       = $apache::params::template,
+    $priority       = $apache::params::priority,
+    $servername     = $apache::params::servername,
+    $serveraliases  = $apache::params::serveraliases,
+    $serveradmin    = '',
+    $auth           = $apache::params::auth,
+    $redirect_ssl   = $apache::params::redirect_ssl,
+    $options        = $apache::params::options,
+    $allow_override = 'None',
+    $apache_name    = $apache::params::apache_name,
+    $vhost_name     = $apache::params::vhost_name
   ) {
 
   include apache
@@ -63,7 +65,7 @@ define apache::vhost(
   }
 
   file {
-    "${apache::params::vdir}/${priority}-${name}.conf":
+    "${apache::params::vdir}/${priority}-${name}":
       content => template($template),
       owner   => 'root',
       group   => 'root',

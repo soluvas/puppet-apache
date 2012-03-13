@@ -1,23 +1,25 @@
-# ************************************
-# Default template in module puppetlabs-apache
-# Managed by Puppet
-# ************************************
-
 NameVirtualHost <%= vhost_name %>:<%= port %>
 <VirtualHost <%= vhost_name %>:<%= port %>>
-	ServerName <%= srvname %>
+	ServerName  <%= srvname %>
 <% if serveraliases.is_a? Array -%>
-<% serveraliases.each do |name| -%><%= "	ServerAlias #{name}\n" %><% end -%>
-<% elsif serveraliases != '' -%>
-<%= "	ServerAlias #{serveraliases}" -%>
+<% serveraliases.each do |name| -%>
+	ServerAlias <%= name %>
 <% end -%>
+<% elsif !serveraliases.empty? -%>
+	ServerAlias <%= serveraliases %>
+<% end -%>
+<% if !serveradmin.empty? -%>
+	ServerAdmin <%= serveradmin %>
+<% end -%>
+
 	DocumentRoot <%= docroot %>
-	<Directory <%= docroot %>>
+	<Directory "<%= docroot %>">
 		Options <%= options %>
-		AllowOverride None
+		AllowOverride <%= allow_override %>
 		Order allow,deny
 		Allow from all
-		</Directory>
+	</Directory>
+	
 	ErrorLog /var/log/<%= apache_name %>/<%= name %>_error.log
 	LogLevel warn
 	CustomLog /var/log/<%= apache_name %>/<%= name %>_access.log combined

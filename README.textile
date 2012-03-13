@@ -44,6 +44,17 @@ bc. @apache::module {
 }
 
 
+h2. Standard VirtualHost
+
+Useful for static pages such as maintenance pages:
+
+bc.   apache::vhost { 'www.kreasiindonesia.com':
+    serveradmin   => 'commerce-sysadmin+kreasiindonesia@bippo.co.id',
+    serveraliases => ['kreasiindonesia.com', 'm.kreasiindonesia.com', 'www.m.kreasiindonesia.com'],
+    docroot       => '/home/magento/www_maintenance',
+  }
+
+
 h2. FastCGI PHP
 
 To connect to e.g. *PHP-FPM* :
