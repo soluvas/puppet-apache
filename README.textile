@@ -71,17 +71,38 @@ apache::vhost::fastcgi_php { 'ceefour.annafi.dev':
 
 Example PHP-FPM pool configuration (@/etc/php5/fpm/pool.d/ceefour.conf@) for the above Apache FastCGI PHP5 configuration:
 
-bc.. [ceefour]
+bc. [ceefour]
 listen = /var/run/php-ceefour.sock
-
 user = ceefour
 group = ceefour
-
 pm = dynamic
 pm.max_children = 10
 pm.start_servers = 1
 pm.min_spare_servers = 1
 pm.max_spare_servers = 5
+
+Or using "php Puppet module":https://github.com/soluvas/puppet-php:
+
+bc.   file { "/home/${developer}/public_html":
+    ensure => directory,
+    owner  => $developer,
+    group  => $developer,
+    mode   => 0755
+  }
+  file { "/home/${developer}/fastcgi-bin":
+    ensure => directory,
+    owner  => $developer,
+    group  => $developer,
+    mode   => 0755
+  }
+  apache::vhost::fastcgi_php { "${developer}.${::fqdn}":
+    docroot     => "/home/${developer}/public_html",
+    fastcgi_dir => "/home/${developer}/fastcgi-bin",
+    socket      => "/var/run/php-${developer}.sock",
+    options     => 'All',
+    require     => [ File["/home/${developer}/public_html"],
+                     File["/home/${developer}/fastcgi-bin"] ]
+  }
 
 
 h2. Reverse Proxy
@@ -98,7 +119,7 @@ bc.   apache::vhost::proxy { erp:
     serveradmin   => 'webmaster+erp@bippo.co.id',
   }
 
-If you use mod_jk, it needs to be specified separately.
+If you use *mod_jk*, it needs to be configured separately.
 
 
 h2. C Library Development Usage
