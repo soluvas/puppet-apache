@@ -54,6 +54,10 @@ bc.   apache::vhost { 'www.kreasiindonesia.com':
     docroot       => '/home/magento/www_maintenance',
   }
 
+The default @Options@ directive is @FollowSymLinks MultiViews@.
+@Indexes@ is disabled by default to improve security a bit.
+The default @AllowOverride@ is @None@.
+
 
 h2. FastCGI PHP
 
@@ -79,6 +83,9 @@ apache::vhost::fastcgi_php { 'ceefour.annafi.dev':
   require     => [ File['/home/ceefour/public_html'],
                    File['/home/ceefour/fastcgi-bin'] ]
 }
+
+The default @Options@ is @FollowSymLinks MultiViews@.
+The default @AllowOverride@ is @All@.
 
 Example PHP-FPM pool configuration (@/etc/php5/fpm/pool.d/ceefour.conf@) for the above Apache FastCGI PHP5 configuration:
 
@@ -142,6 +149,22 @@ bc.   apache::vhost::redirect { 'plus.naylakidz.com':
     dest          => 'https://plus.google.com/110822451617676222387',
     status        => permanent,
   }
+
+
+h2. Custom Template for Magento Hosting
+
+This reuses the @apache::vhost::fastcgi_php@ but with a different template:
+
+bc.   apache::vhost::fastcgi_php { 'www.example.com':
+  docroot     => '/home/magento/sites/example',
+  fastcgi_dir => '/home/magento/fastcgi-bin',
+  require     => [ File['/home/ceefour/public_html'],
+                   File['/home/ceefour/fastcgi-bin'] ]
+}
+
+It requires you to add your own @FastCgiExternalServer@, for example in @/etc/apache2/conf.d/php-magento@ :
+
+bc. FastCgiExternalServer /home/magento/fastcgi-bin/php.external -socket /var/run/php-magento.sock -idle-timeout 900
 
 
 h2. C Library Development Usage

@@ -18,7 +18,6 @@ NameVirtualHost <%= vhost_name %>:<%= port %>
 	CustomLog /var/log/<%= apache_name %>/<%= name %>_access.log combined
 	ServerSignature Off
 	
-	FastCgiExternalServer <%= fastcgi_dir %>/php.external -socket <%= socket %> -idle-timeout 900
 	Alias /fastcgi-bin <%= fastcgi_dir %>
  	<Location "/fastcgi-bin/php.external">
 		Order Deny,Allow
@@ -27,5 +26,8 @@ NameVirtualHost <%= vhost_name %>:<%= port %>
 	</Location>
 	AddHandler php-fastcgi .php
 	Action php-fastcgi /fastcgi-bin/php.external
+	
+	# Mobile
+	SetEnvIf Host "^m\." MAGE_RUN_CODE=m MAGE_RUN_TYPE=store
 	
 </VirtualHost>

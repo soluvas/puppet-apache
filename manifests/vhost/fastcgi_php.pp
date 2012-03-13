@@ -23,11 +23,11 @@ define apache::vhost::fastcgi_php (
   $docroot,
   $port           = 80,
   $fastcgi_dir,
-  $socket,
+  $socket         = undef,
   $priority       = '10',
   $serveraliases  = '',
   $template       = "apache/vhost-fastcgi-php.conf.erb",
-  $options        = $apache::params::options, #'All -Indexes',
+  $options        = $apache::params::options,
   $allow_override = 'All',
   $apache_name    = $apache::params::apache_name,
   $vhost_name     = $apache::params::vhost_name)
