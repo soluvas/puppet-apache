@@ -5,21 +5,28 @@ Based on "puppetlabs-apache":https://github.com/puppetlabs/puppetlabs-apache (C)
 
 h2. Simple Usage
 
-bc. include apache
+bc. include apache::ssl
 # Realize previously defined virtual resources of Apache modules
 Apache::Module <| |>
 
 By default this will enable the following Apache modules:
 
-* rewrite
-* headers
-* expires
-* deflate
-* alias
+* @rewrite@
+* @headers@
+* @expires@
+* @deflate@
+* @alias@
+* @ssl@ (if including @apache::ssl@), configured to enable SNI (Server Name Indication)
+
+
+h2. No SSL Support
+
+To disable SSL support, simply @include apache@ instead of @include apache::ssl@.
+
 
 h2. Common Usage
 
-bc. include apache
+bc. include apache::ssl
 package {
   libapache2-mod-fastcgi: ensure => present
 }
@@ -158,8 +165,19 @@ This reuses the @apache::vhost::fastcgi_php@ but with a different template:
 bc.   apache::vhost::fastcgi_php { 'www.example.com':
   docroot     => '/home/magento/sites/example',
   fastcgi_dir => '/home/magento/fastcgi-bin',
-  require     => [ File['/home/ceefour/public_html'],
-                   File['/home/ceefour/fastcgi-bin'] ]
+  template    => 'apache/vhost-magento.conf.erb',
+}
+
+or with SSL:
+
+bc.   apache::vhost::fastcgi_php { 'www.example.com':
+  docroot     => '/home/magento/sites/example',
+  fastcgi_dir => '/home/magento/fastcgi-bin',
+  template    => 'apache/vhost-magento.conf.erb',
+  ssl_cert    => '/etc/ssl/certs/www.example.com.crt',
+  ssl_key     => '/etc/ssl/private/www.example.com.key',
+  ssl_chain   => '/etc/ssl/certs/sub.class1.server.ca.pem',
+  ssl_ca      => '/etc/ssl/certs/ca.pem',
 }
 
 It requires you to add your own @FastCgiExternalServer@, for example in @/etc/apache2/conf.d/php-magento@ :

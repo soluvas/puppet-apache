@@ -26,12 +26,17 @@ define apache::vhost::fastcgi_php (
   $socket         = undef,
   $priority       = '10',
   $serveraliases  = '',
+  $serveradmin    = '',
   $template       = "apache/vhost-fastcgi-php.conf.erb",
   $options        = $apache::params::options,
   $allow_override = 'All',
   $apache_name    = $apache::params::apache_name,
-  $vhost_name     = $apache::params::vhost_name)
-{
+  $vhost_name     = $apache::params::vhost_name,
+  $ssl_cert       = '',    # SSL Certificate
+  $ssl_key        = '',    # SSL Private Key
+  $ssl_chain      = '',    # SSL Certificate Chain
+  $ssl_ca         = ''     # SSL CA Certificate
+) {
 
   include apache
 

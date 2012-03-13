@@ -12,10 +12,10 @@
 #
 # Sample Usage:
 #
-class apache::ssl {
+class apache::ssl ($sni = true) {
 
   include apache
-  
+
   case $operatingsystem {
      'centos', 'fedora', 'redhat', 'scientific': {
         package { $apache::params::ssl_package:
@@ -23,7 +23,15 @@ class apache::ssl {
         }
      }
      'ubuntu', 'debian': {
-        a2mod { "ssl": ensure => present, }
+        @apache::module { ssl: ensure => present }
+        # SSL Server Name Indication (SNI)
+        file { '/etc/apache2/conf.d/ssl-sni':
+        	ensure  => $sni ? { true => file, false => absent },
+        	owner   => 'root',
+        	group   => 'root',
+        	mode    => 0644,
+        	content => template('apache/ssl-sni.conf.erb'),
+        }
      }
   }
 }
