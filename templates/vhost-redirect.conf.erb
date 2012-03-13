@@ -1,11 +1,16 @@
 NameVirtualHost <%= vhost_name %>:<%= port %>
 <VirtualHost <%= vhost_name %>:<%= port %>>
-  ServerName <%= srvname %>
-<% if serveraliases.is_a? Array %>
-<% serveraliases.each do |name| %><%= "  ServerAlias #{name}\n" %><% end %>
-<% elsif serveraliases != '' %>
-<%= "  ServerAlias #{serveraliases}" %>
-<% end %>
-  Redirect <%= status %> / <%= dest %>
-</VirtualHost>
+	ServerName  <%= srvname %>
+<% if serveraliases.is_a? Array -%>
+<% serveraliases.each do |name| -%>
+	ServerAlias <%= name %>
+<% end -%>
+<% elsif !serveraliases.empty? -%>
+	ServerAlias <%= serveraliases %>
+<% end -%>
+<% if !serveradmin.empty? -%>
+	ServerAdmin <%= serveradmin %>
+<% end -%>
 
+	Redirect <%= status_code %> / <%= dest %>
+</VirtualHost>

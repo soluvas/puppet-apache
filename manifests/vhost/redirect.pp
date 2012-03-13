@@ -17,18 +17,23 @@
 # Sample Usage:
 #
 define apache::vhost::redirect (
-    $port,
+    $port          = 80,
     $dest,
     $priority      = '10',
     $serveraliases = '',
+    $serveradmin   = '',
     $template      = "apache/vhost-redirect.conf.erb",
     $vhost_name    = '*',
-    $status        = '302' # temporary
-  ) {
+    $status        = 'temporary'
+) {
 
   include apache
 
   $srvname = $name
+  $status_code = $status ? {
+  	temporary => '302',
+  	permanent => '301'
+  }
 
   file {"${apache::params::vdir}/${priority}-${name}":
     content => template($template),
@@ -48,6 +53,6 @@ define apache::vhost::redirect (
 #        proto => 'tcp'
 #    }
 #  }
-  
+
 }
 

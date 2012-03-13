@@ -25,7 +25,6 @@ define apache::vhost::proxy (
     $dest,
     $priority      = '10',
     $template      = "apache/vhost-proxy.conf.erb",
-    $servername    = '',
     $serveradmin   = '',
     $serveraliases = '',
     $ssl           = false,
