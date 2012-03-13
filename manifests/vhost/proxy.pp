@@ -3,9 +3,9 @@
 # Configures an apache vhost that will only proxy requests
 #
 # Parameters:
-# * $port: 
+# * $port:
 #     The port on which the vhost will respond
-# * $dest: 
+# * $dest:
 #     URI that the requests will be proxied for
 # - $priority
 # - $template -- the template to use for the vhost
@@ -20,11 +20,13 @@
 # @apache::module { proxy: ensure => present }
 #
 define apache::vhost::proxy (
-    $port,
+    $port          = 80,
+    $path          = '/',
     $dest,
     $priority      = '10',
     $template      = "apache/vhost-proxy.conf.erb",
     $servername    = '',
+    $serveradmin   = '',
     $serveraliases = '',
     $ssl           = false,
     $vhost_name    = '*',
