@@ -158,6 +158,19 @@ bc.   apache::vhost::redirect { 'plus.naylakidz.com':
   }
 
 
+h2. WebDAV Repository
+
+bc.   apache::vhost::dav { "dav.${developer}.${::fqdn}":
+    docroot     => "/home/${developer}/public_dav",
+  }
+
+Notable options and default values:
+
+* @$options@        = '+Indexes', # DAV is usually publicly listable, unless you use it for normal hosting
+* @$allow_override@ = 'None',
+* @$allow_from@     = 'localhost', # By default it is "secure" because we don't put any security yet
+
+
 h2. Custom Template for Magento Hosting
 
 This reuses the @apache::vhost::fastcgi_php@ but with a different template:
