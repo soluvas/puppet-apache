@@ -5,6 +5,8 @@
 # Parameters:
 # * $port:
 #     The port on which the vhost will respond
+# * $path:
+#     Path that the requests will be proxied for, defaults to '/'
 # * $dest:
 #     URI that the requests will be proxied for
 # - $priority

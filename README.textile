@@ -198,6 +198,20 @@ It requires you to add your own @FastCgiExternalServer@, for example in @/etc/ap
 bc. FastCgiExternalServer /home/magento/fastcgi-bin/php.external -socket /var/run/php-magento.sock -idle-timeout 900
 
 
+h2. PHP-FPM via FastCGI plus Reverse Proxy
+
+bc.  apache::vhost::fastcgi_php_proxy { "${developer}.${::fqdn}":
+    docroot     => "/home/${developer}/public_html",
+    fastcgi_dir => "/home/${developer}/fastcgi-bin",
+    socket      => "/var/run/php-${developer}.sock",
+    proxy_path  => '/commerce-center/',
+    proxy_dest  => 'http://localhost:9080/commerce-center/',
+    options     => 'All',
+    require     => [ File["/home/${developer}/public_html"],
+                     File["/home/${developer}/fastcgi-bin"] ]
+  }
+
+
 h2. C Library Development Usage
 
 Add class @apache::dev@ :
