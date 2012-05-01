@@ -13,7 +13,7 @@
     "files/httpd": "295f5e924afe6f752d29327e73fe6d0a",
     "files/test.vhost": "0602022c19a7b6b289f218c7b93c1aea",
     "manifests/dev.pp": "bc54a5af648cb04b7b3bb0e3f7be6543",
-    "manifests/init.pp": "0d3464f0c2de92b4a469e62bcaf5224a",
+    "manifests/init.pp": "668c5ac59c7c6ec975036cbe66f93c05",
     "manifests/mod/python.pp": "f6314af3248dadc62f0bf73b606389df",
     "manifests/mod/wsgi.pp": "e6447e4ee209cf967f09e6977dd83eaa",
     "manifests/params.pp": "2b9b9c354849f9f6c8fe5d13fc8ed001",
